@@ -46,8 +46,9 @@ type Collection interface {
 	// Count() (n int, err error)
 	// Insert(docs ...interface{}) error
 	Remove(selector interface{}) error
-	UpdateId(selector, update interface{}) error
+	UpdateId(id, update interface{}) error
 	Upsert(selector, update interface{}) (*mgo.ChangeInfo, error)
+	UpsertId(id, update interface{}) (*mgo.ChangeInfo, error)
 }
 
 // Query is an interface for querying a MongoDB collection
