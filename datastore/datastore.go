@@ -43,8 +43,8 @@ type Database interface {
 type Collection interface {
 	Find(query interface{}) Query
 	FindId(id interface{}) Query
-	// Count() (n int, err error)
-	// Insert(docs ...interface{}) error
+	Count() (n int, err error)
+	Insert(docs ...interface{}) error
 	Remove(selector interface{}) error
 	UpdateId(id, update interface{}) error
 	Upsert(selector, update interface{}) (*mgo.ChangeInfo, error)
