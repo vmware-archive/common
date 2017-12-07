@@ -43,6 +43,7 @@ type Database interface {
 
 // Collection is an interface for accessing a MongoDB collection
 type Collection interface {
+	Bulk() Bulk
 	Find(query interface{}) Query
 	FindId(id interface{}) Query
 	Count() (n int, err error)
@@ -51,6 +52,12 @@ type Collection interface {
 	UpdateId(id, update interface{}) error
 	Upsert(selector, update interface{}) (*mgo.ChangeInfo, error)
 	UpsertId(id, update interface{}) (*mgo.ChangeInfo, error)
+}
+
+// Bulk is an interface for running Bulk queries on a MongoDB collection
+type Bulk interface {
+	Upsert(pairs ...interface{})
+	Run() (*mgo.BulkResult, error)
 }
 
 // Query is an interface for querying a MongoDB collection
@@ -83,6 +90,10 @@ func (d *mgoDatabase) C(name string) Collection {
 // mgoCollection wraps an mgo.Collection and implements Collection
 type mgoCollection struct {
 	*mgo.Collection
+}
+
+func (c *mgoCollection) Bulk() Bulk {
+	return c.Collection.Bulk()
 }
 
 func (c *mgoCollection) Find(query interface{}) Query {
