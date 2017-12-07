@@ -27,6 +27,8 @@ import (
 type Config struct {
 	URL      string
 	Database string
+	Username string
+	Password string
 }
 
 // Session is an interface for a MongoDB session
@@ -93,7 +95,17 @@ func (c *mgoCollection) FindId(id interface{}) Query {
 
 // NewSession initializes a MongoDB connection to the given host
 func NewSession(conf Config) (Session, error) {
-	session, err := mgo.Dial(conf.URL)
+	dialInfo, err := mgo.ParseURL(conf.URL)
+	if err != nil {
+		return nil, err
+	}
+	if conf.Username != "" {
+		dialInfo.Username = conf.Username
+	}
+	if conf.Password != "" {
+		dialInfo.Password = conf.Password
+	}
+	session, err := mgo.DialWithInfo(dialInfo)
 	if err != nil {
 		return nil, errors.New("unable to connect to MongoDB")
 	}
