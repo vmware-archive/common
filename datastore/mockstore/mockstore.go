@@ -30,6 +30,10 @@ type mockCollection struct {
 	*mock.Mock
 }
 
+func (c mockCollection) Bulk() datastore.Bulk {
+	return mockBulk{c.Mock}
+}
+
 func (c mockCollection) Find(query interface{}) datastore.Query {
 	return mockQuery{c.Mock}
 }
@@ -62,6 +66,23 @@ func (c mockCollection) Remove(selector interface{}) error {
 
 func (c mockCollection) Count() (int, error) {
 	return 0, nil
+}
+
+// mockBulk acts as a mock datastore.Bulk
+type mockBulk struct {
+	*mock.Mock
+}
+
+func (b mockBulk) Upsert(pairs ...interface{}) {
+	b.Called(pairs)
+}
+
+func (b mockBulk) RemoveAll(selectors ...interface{}) {
+	b.Called(selectors)
+}
+
+func (b mockBulk) Run() (*mgo.BulkResult, error) {
+	return nil, nil
 }
 
 // mockQuery acts as a mock datastore.Query

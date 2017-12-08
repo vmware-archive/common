@@ -57,6 +57,7 @@ type Collection interface {
 // Bulk is an interface for running Bulk queries on a MongoDB collection
 type Bulk interface {
 	Upsert(pairs ...interface{})
+	RemoveAll(selectors ...interface{})
 	Run() (*mgo.BulkResult, error)
 }
 
