@@ -65,6 +65,8 @@ type Bulk interface {
 type Query interface {
 	All(result interface{}) error
 	One(result interface{}) error
+	Sort(fields ...string) Query
+	Select(selector interface{}) Query
 }
 
 // mgoSession wraps an mgo.Session and implements Session
@@ -98,11 +100,24 @@ func (c *mgoCollection) Bulk() Bulk {
 }
 
 func (c *mgoCollection) Find(query interface{}) Query {
-	return c.Collection.Find(query)
+	return &mgoQuery{c.Collection.Find(query)}
 }
 
 func (c *mgoCollection) FindId(id interface{}) Query {
-	return c.Collection.FindId(id)
+	return &mgoQuery{c.Collection.FindId(id)}
+}
+
+// mgoQuery wraps an mgo.Query and implements Query
+type mgoQuery struct {
+	*mgo.Query
+}
+
+func (q *mgoQuery) Sort(fields ...string) Query {
+	return &mgoQuery{q.Query.Sort(fields...)}
+}
+
+func (q *mgoQuery) Select(selector interface{}) Query {
+	return &mgoQuery{q.Query.Select(selector)}
 }
 
 // NewSession initializes a MongoDB connection to the given host
