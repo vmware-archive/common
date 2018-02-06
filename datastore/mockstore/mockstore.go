@@ -100,6 +100,14 @@ func (q mockQuery) One(result interface{}) error {
 	return args.Error(0)
 }
 
+func (q mockQuery) Sort(fields ...string) datastore.Query {
+	return q
+}
+
+func (q mockQuery) Select(selector interface{}) datastore.Query {
+	return q
+}
+
 // NewMockSession returns a mocked Session
 func NewMockSession(m *mock.Mock) datastore.Session {
 	return mockSession{m}
