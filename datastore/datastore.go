@@ -49,6 +49,7 @@ type Collection interface {
 	Count() (n int, err error)
 	Insert(docs ...interface{}) error
 	Remove(selector interface{}) error
+	RemoveAll(selector interface{}) (*mgo.ChangeInfo, error)
 	UpdateId(id, update interface{}) error
 	Upsert(selector, update interface{}) (*mgo.ChangeInfo, error)
 	UpsertId(id, update interface{}) (*mgo.ChangeInfo, error)
