@@ -65,6 +65,7 @@ func (c mockCollection) Remove(selector interface{}) error {
 }
 
 func (c mockCollection) RemoveAll(selector interface{}) (*mgo.ChangeInfo, error) {
+	c.Called(selector)
 	return nil, nil
 }
 
