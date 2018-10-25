@@ -2,44 +2,70 @@
 
 
 [[projects]]
+  digest = "1:56c130d885a4aacae1dd9c7b71cfe39912c7ebc1ff7d2b46083c8812996dc43b"
   name = "github.com/davecgh/go-spew"
   packages = ["spew"]
+  pruneopts = ""
   revision = "346938d642f2ec3594ed81d874461961cd0faa76"
   version = "v1.1.0"
 
 [[projects]]
+  digest = "1:256484dbbcd271f9ecebc6795b2df8cad4c458dd0f5fd82a8c2fa0c29f233411"
   name = "github.com/pmezard/go-difflib"
   packages = ["difflib"]
+  pruneopts = ""
   revision = "792786c7400a136282c1664665ae0a8db921c6c2"
   version = "v1.0.0"
 
 [[projects]]
+  digest = "1:306417ea2f31ea733df356a2b895de63776b6a5107085b33458e5cd6eb1d584d"
   name = "github.com/stretchr/objx"
   packages = ["."]
+  pruneopts = ""
   revision = "facf9a85c22f48d2f52f2380e4efce1768749a89"
   version = "v0.1"
 
 [[projects]]
+  digest = "1:a30066593578732a356dc7e5d7f78d69184ca65aeeff5939241a3ab10559bb06"
   name = "github.com/stretchr/testify"
-  packages = ["assert","mock"]
+  packages = [
+    "assert",
+    "mock",
+  ]
+  pruneopts = ""
   revision = "12b6f73e6084dad08a7c6e575284b177ecafbc71"
   version = "v1.2.1"
 
 [[projects]]
   branch = "master"
+  digest = "1:90bbd225f6aaeaebdb9912c68176548900c24b795fe0841bafa7089d180dbd91"
   name = "github.com/unrolled/render"
   packages = ["."]
+  pruneopts = ""
   revision = "65450fb6b2d3595beca39f969c411db8f8d5c806"
 
 [[projects]]
   branch = "v2"
+  digest = "1:c80894778314c7fb90d94a5ab925214900e1341afeddc953cda7398b8cdcd006"
   name = "gopkg.in/mgo.v2"
-  packages = [".","bson","internal/json","internal/sasl","internal/scram"]
+  packages = [
+    ".",
+    "bson",
+    "internal/json",
+    "internal/sasl",
+    "internal/scram",
+  ]
+  pruneopts = ""
   revision = "3f83fa5005286a7fe593b055f0d7771a7dce4655"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "e14590e58a457eec083b0ec03fcce73b01e9810f21e870a37c936efeeff40ab7"
+  input-imports = [
+    "github.com/stretchr/testify/assert",
+    "github.com/stretchr/testify/mock",
+    "github.com/unrolled/render",
+    "gopkg.in/mgo.v2",
+  ]
   solver-name = "gps-cdcl"
   solver-version = 1
