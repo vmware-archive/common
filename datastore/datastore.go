@@ -137,7 +137,7 @@ func NewSession(conf Config) (Session, error) {
 	if conf.Password != "" {
 		dialInfo.Password = conf.Password
 	}
-	if conf.Timeout != 0 {
+	if conf.Timeout == 0 {
 		conf.Timeout = defaultTimeout
 	}
 	dialInfo.Timeout = conf.Timeout
