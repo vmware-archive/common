@@ -10,6 +10,20 @@
   version = "v1.1.0"
 
 [[projects]]
+  digest = "1:c1e35087694b689ce1cf4f4277612b6ac0b55725fa791271ae0e3ddcd1cc0c7b"
+  name = "github.com/globalsign/mgo"
+  packages = [
+    ".",
+    "bson",
+    "internal/json",
+    "internal/sasl",
+    "internal/scram",
+  ]
+  pruneopts = ""
+  revision = "113d3961e7311526535a1ef7042196563d442761"
+  version = "r2018.06.15"
+
+[[projects]]
   digest = "1:256484dbbcd271f9ecebc6795b2df8cad4c458dd0f5fd82a8c2fa0c29f233411"
   name = "github.com/pmezard/go-difflib"
   packages = ["difflib"]
@@ -44,28 +58,14 @@
   pruneopts = ""
   revision = "65450fb6b2d3595beca39f969c411db8f8d5c806"
 
-[[projects]]
-  branch = "v2"
-  digest = "1:c80894778314c7fb90d94a5ab925214900e1341afeddc953cda7398b8cdcd006"
-  name = "gopkg.in/mgo.v2"
-  packages = [
-    ".",
-    "bson",
-    "internal/json",
-    "internal/sasl",
-    "internal/scram",
-  ]
-  pruneopts = ""
-  revision = "3f83fa5005286a7fe593b055f0d7771a7dce4655"
-
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
   input-imports = [
+    "github.com/globalsign/mgo",
     "github.com/stretchr/testify/assert",
     "github.com/stretchr/testify/mock",
     "github.com/unrolled/render",
-    "gopkg.in/mgo.v2",
   ]
   solver-name = "gps-cdcl"
   solver-version = 1

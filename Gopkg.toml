@@ -22,5 +22,7 @@
 
 
 [[constraint]]
-  branch = "v2"
-  name = "gopkg.in/mgo.v2"
+  # Project does not currently use semantic versioning. Specifying the latest
+  # version.
+  version = "r2018.06.15"
+  name = "github.com/globalsign/mgo"
