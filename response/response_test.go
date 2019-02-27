@@ -85,14 +85,34 @@ func TestNewDataResponse(t *testing.T) {
 	}
 }
 
+func TestNewDataResponseWithMeta(t *testing.T) {
+	tests := []struct {
+		name string
+		data interface{}
+		meta interface{}
+	}{
+		{"single resource", resource{"test"}, resource{"foo"}},
+		{"multiple resources", []resource{{"one"}, {"two"}}, resource{"foo"}},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			d := NewDataResponseWithMeta(tt.data, tt.meta)
+			assert.Equal(t, tt.data, d.Data)
+			assert.Equal(t, tt.meta, d.Meta)
+		})
+	}
+}
+
 func TestDataResponse_Write(t *testing.T) {
 	tests := []struct {
 		name string
 		d    DataResponse
 		want string
 	}{
-		{"single resource", DataResponse{http.StatusOK, resource{"test"}}, `{"data":{"id":"test"}}`},
-		{"multiple resources", DataResponse{http.StatusOK, []resource{{"one"}, {"two"}}}, `{"data":[{"id":"one"},{"id":"two"}]}`},
+		{"single resource", DataResponse{http.StatusOK, resource{"test"}, nil}, `{"data":{"id":"test"}}`},
+		{"multiple resources", DataResponse{http.StatusOK, []resource{{"one"}, {"two"}}, nil}, `{"data":[{"id":"one"},{"id":"two"}]}`},
+		{"multiple resources with meta", DataResponse{http.StatusOK, []resource{{"one"}, {"two"}}, resource{"foo"}}, `{"data":[{"id":"one"},{"id":"two"}],"meta":{"id":"foo"}}`},
 	}
 
 	for _, tt := range tests {
