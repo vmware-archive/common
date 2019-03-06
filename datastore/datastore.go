@@ -48,7 +48,7 @@ type Database interface {
 // Collection is an interface for accessing a MongoDB collection
 type Collection interface {
 	Bulk() Bulk
-	Pipe(selector interface{}) Pipe
+	Pipe(pipeline interface{}) Pipe
 	Find(query interface{}) Query
 	FindId(id interface{}) Query
 	Count() (n int, err error)
@@ -73,12 +73,12 @@ type Query interface {
 	One(result interface{}) error
 	Sort(fields ...string) Query
 	Select(selector interface{}) Query
-	Count() (n int, err error)
 }
 
 // Pipe is an interface for MongoDB aggregation
 type Pipe interface {
 	All(result interface{}) error
+	One(result interface{}) error
 }
 
 // mgoSession wraps an mgo.Session and implements Session
@@ -136,17 +136,9 @@ func (q *mgoQuery) Select(selector interface{}) Query {
 	return &mgoQuery{q.Query.Select(selector)}
 }
 
-func (q *mgoQuery) Count() (int, error) {
-	return q.Query.Count()
-}
-
 // mgoPipe wraps an mgo.Pipe and implements Pipe
 type mgoPipe struct {
-	mgoP *mgo.Pipe
-}
-
-func (p *mgoPipe) All(result interface{}) error {
-	return p.mgoP.All(result)
+	*mgo.Pipe
 }
 
 // NewSession initializes a MongoDB connection to the given host

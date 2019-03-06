@@ -133,6 +133,11 @@ func (p mockPipe) All(result interface{}) error {
 	return nil
 }
 
+func (p mockPipe) One(result interface{}) error {
+	p.Called(result)
+	return nil
+}
+
 // NewMockSession returns a mocked Session
 func NewMockSession(m *mock.Mock) datastore.Session {
 	return mockSession{m}
