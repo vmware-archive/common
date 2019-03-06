@@ -118,11 +118,6 @@ func (q mockQuery) Select(selector interface{}) datastore.Query {
 	return q
 }
 
-func (q mockQuery) Count() (int, error) {
-	len := q.Called()[0]
-	return len.(int), nil
-}
-
 // mockPipe acts as a mock datastore.Pipe
 type mockPipe struct {
 	*mock.Mock
