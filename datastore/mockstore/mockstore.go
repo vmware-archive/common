@@ -16,6 +16,10 @@ func (s mockSession) DB() (datastore.Database, func()) {
 	return mockDatabase{s.Mock}, func() {}
 }
 
+func (s mockSession) Use(name string) datastore.Session {
+	return s
+}
+
 // mockDatabase acts as a mock datastore.Database
 type mockDatabase struct {
 	*mock.Mock
