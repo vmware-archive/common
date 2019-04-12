@@ -38,6 +38,7 @@ type Config struct {
 // Session is an interface for a MongoDB session
 type Session interface {
 	DB() (Database, func())
+	Use(name string) Session
 }
 
 // Database is an interface for accessing a MongoDB database
@@ -91,6 +92,12 @@ func (s *mgoSession) DB() (Database, func()) {
 	copy := s.Session.Copy()
 	closer := func() { copy.Close() }
 	return &mgoDatabase{copy.DB(s.conf.Database)}, closer
+}
+
+// Change the database in use
+func (s *mgoSession) Use(name string) Session {
+	s.conf.Database = name
+	return s
 }
 
 // mgoDatabase wraps an mgo.Database and implements Database
