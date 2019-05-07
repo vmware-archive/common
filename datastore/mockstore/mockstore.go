@@ -61,7 +61,10 @@ func (c mockCollection) UpsertId(selector interface{}, update interface{}) (*mgo
 }
 
 func (c mockCollection) UpdateId(selector, update interface{}) error {
-	c.Called(selector, update)
+	res := c.Called(selector, update)
+	if len(res) > 0 {
+		return res.Error(0)
+	}
 	return nil
 }
 
