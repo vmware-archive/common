@@ -61,9 +61,9 @@ func (c mockCollection) UpsertId(selector interface{}, update interface{}) (*mgo
 }
 
 func (c mockCollection) UpdateId(selector, update interface{}) error {
-	res := c.Called(selector, update)
-	if len(res) > 0 {
-		return res.Error(0)
+	args := c.Called(selector, update)
+	if len(args) > 0 {
+		return args.Error(0)
 	}
 	return nil
 }
@@ -114,7 +114,10 @@ func (q mockQuery) All(result interface{}) error {
 
 func (q mockQuery) One(result interface{}) error {
 	args := q.Called(result)
-	return args.Error(0)
+	if len(args) > 0 {
+		return args.Error(0)
+	}
+	return nil
 }
 
 func (q mockQuery) Sort(fields ...string) datastore.Query {
