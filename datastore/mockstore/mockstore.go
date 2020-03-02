@@ -85,6 +85,14 @@ func (c mockCollection) Pipe(pipeline interface{}) datastore.Pipe {
 	return mockPipe{c.Mock}
 }
 
+func (c mockCollection) DropCollection() error {
+	return nil
+}
+
+func (c mockCollection) EnsureIndex(index mgo.Index) error {
+	return nil
+}
+
 // mockBulk acts as a mock datastore.Bulk
 type mockBulk struct {
 	*mock.Mock
