@@ -20,6 +20,10 @@ func (s mockSession) Use(name string) datastore.Session {
 	return s
 }
 
+func (s mockSession) Fsync(async bool) error {
+	return nil
+}
+
 // mockDatabase acts as a mock datastore.Database
 type mockDatabase struct {
 	*mock.Mock

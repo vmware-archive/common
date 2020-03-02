@@ -39,6 +39,7 @@ type Config struct {
 type Session interface {
 	DB() (Database, func())
 	Use(name string) Session
+	Fsync(async bool) error
 }
 
 // Database is an interface for accessing a MongoDB database
