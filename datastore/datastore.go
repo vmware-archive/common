@@ -39,6 +39,7 @@ type Config struct {
 type Session interface {
 	DB() (Database, func())
 	Use(name string) Session
+	Fsync(async bool) error
 }
 
 // Database is an interface for accessing a MongoDB database
@@ -59,6 +60,8 @@ type Collection interface {
 	UpdateId(id, update interface{}) error
 	Upsert(selector, update interface{}) (*mgo.ChangeInfo, error)
 	UpsertId(id, update interface{}) (*mgo.ChangeInfo, error)
+	DropCollection() error
+	EnsureIndex(index mgo.Index) error
 }
 
 // Bulk is an interface for running Bulk queries on a MongoDB collection

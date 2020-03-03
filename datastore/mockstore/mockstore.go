@@ -20,6 +20,10 @@ func (s mockSession) Use(name string) datastore.Session {
 	return s
 }
 
+func (s mockSession) Fsync(async bool) error {
+	return nil
+}
+
 // mockDatabase acts as a mock datastore.Database
 type mockDatabase struct {
 	*mock.Mock
@@ -83,6 +87,14 @@ func (c mockCollection) Count() (int, error) {
 
 func (c mockCollection) Pipe(pipeline interface{}) datastore.Pipe {
 	return mockPipe{c.Mock}
+}
+
+func (c mockCollection) DropCollection() error {
+	return nil
+}
+
+func (c mockCollection) EnsureIndex(index mgo.Index) error {
+	return nil
 }
 
 // mockBulk acts as a mock datastore.Bulk
